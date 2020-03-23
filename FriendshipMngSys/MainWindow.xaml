@@ -5,8 +5,77 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FriendshipMngSys"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="王氏人脉管理系统" Height="1060" Width="1600" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="85*"/>
+            <ColumnDefinition Width="711*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22*"/>
+            <RowDefinition Height="79*"/>
+            <RowDefinition Height="928*"/>
+        </Grid.RowDefinitions>
+        <TreeView x:Name="treeView" Grid.Row="2"  VerticalContentAlignment="Stretch" Background="#FFD8F7D8">
+            <TreeViewItem IsExpanded="True" Header="张三">
+                <TreeViewItem IsExpanded="True" Header="王宝强">
+                    <TreeViewItem IsExpanded="True" Header="张曼玉"/>
+                    <TreeViewItem IsExpanded="True" Header="刘德华"/>
+                </TreeViewItem>
+                <TreeViewItem IsExpanded="True" Header="张曼玉">
+                    <TreeViewItem IsExpanded="True" Header="王宝强"/>
+
+                </TreeViewItem>
+                <TreeViewItem IsExpanded="True" Header="李世民">
+                    <TreeViewItem IsExpanded="True" Header="李建成"/>
+                    <TreeViewItem IsExpanded="True" Header="武则天"/>
+                </TreeViewItem>
+                <TreeViewItem IsExpanded="True" Header="华佗">
+                    <TreeViewItem IsExpanded="True" Header="曹操"/>
+                    <TreeViewItem IsExpanded="True" Header="关羽"/>
+                    <TreeViewItem IsExpanded="True" Header="刘备"/>
+                </TreeViewItem>
+            </TreeViewItem>
+
+        </TreeView>
+        <Menu x:Name="menu" Grid.ColumnSpan="2">
+            <MenuItem Header="人员操作">
+                <MenuItem Header="新增"/>
+                <MenuItem Header="编辑"/>
+                <MenuItem Header="删除"/>
+            </MenuItem>
+            <MenuItem Header="关系网操作">
+                <MenuItem Header="添加朋友"/>
+                <MenuItem Header="删除朋友"/>
+            </MenuItem>
+            <MenuItem Header="部门编辑">
+                <MenuItem Header="新增"/>
+                <MenuItem Header="编辑"/>
+                <MenuItem Header="删除"/>
+            </MenuItem>
+            <MenuItem Header="积分设置"/>
+        </Menu>
+        <GroupBox x:Name="groupBox" Header="查找" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid>
+                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="姓名" VerticalAlignment="Top" Margin="10,18,0,0" RenderTransformOrigin="2.792,1.64" />
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="58,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" TextWrapping="Wrap" Text="性别" VerticalAlignment="Top" Margin="198,18,0,0"  />
+            </Grid>
+        </GroupBox>
+        <ListView x:Name="listView" Grid.Column="1" Grid.Row="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="姓名" Width="100"/>
+                    <GridViewColumn Header="性别" Width="30"/>
+                    <GridViewColumn Header="机构" Width="150"/>
+                    <GridViewColumn Header="学生数" Width="50"/>
+                    <GridViewColumn Header="电话" Width="100"/>
+                    <GridViewColumn Header="评分" Width="50"/>
+                    <GridViewColumn Header="是否全职" Width="80"/>
+                    <GridViewColumn Header="年龄" Width="50"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>

@@ -7,11 +7,11 @@ using System.Windows;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("FriendshipMngSys")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("王氏人脉管理系统")]
+[assembly: AssemblyDescription("王氏集团内部产品")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FriendshipMngSys")]
+[assembly: AssemblyCompany("王氏集团")]
+[assembly: AssemblyProduct("王氏人脉管理")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
