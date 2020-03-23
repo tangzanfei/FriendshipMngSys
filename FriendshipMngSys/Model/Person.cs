@@ -92,6 +92,23 @@ namespace FriendshipMngSys.Model
 
         private int score;
 
+
+
+        /*
+         * 
+课时费240以上的老师加5分（单次）
+学生数量高于25个以上加5分（单次）
+参加过比赛加5分（累加）
+参加过多钢琴加10分（累加）
+买了教学琴加5分（单次）
+介绍调律加5分（累加）
+租场5分（累加）
+成交10分（累加）
+备案5分（单次）
+调律5分（累加）
+         * 
+         * 
+         * */
         public int Score
         {
             get { return score; }

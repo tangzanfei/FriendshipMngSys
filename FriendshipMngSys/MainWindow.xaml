@@ -40,7 +40,7 @@
         </TreeView>
         <Menu x:Name="menu" Grid.ColumnSpan="2">
             <MenuItem Header="人员操作">
-                <MenuItem Header="新增"/>
+                <MenuItem Header="新增" Click="MenuItem_Click"/>
                 <MenuItem Header="编辑"/>
                 <MenuItem Header="删除"/>
             </MenuItem>

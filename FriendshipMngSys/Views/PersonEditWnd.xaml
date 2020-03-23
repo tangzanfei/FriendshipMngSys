@@ -1,0 +1,68 @@
+﻿<Window x:Class="FriendshipMngSys.Views.PersonEditWnd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FriendshipMngSys.Views"
+        mc:Ignorable="d"
+        Title="人员信息" Height="500" Width="450">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="姓名"/>
+        <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="性别"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="年龄"/>
+        <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="电话"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="学生数"/>
+        <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="课时费"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="有无促销"/>
+        <TextBlock Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="兼职/全职"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="机构"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="祖籍"/>
+        <TextBlock Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="积分"/>
+
+        <TextBox x:Name="txbName" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+        <RadioButton x:Name="rdMale" Grid.Row="0" Grid.Column="3"  VerticalAlignment="Center" Content="男" Margin="10,0,0,0" IsChecked="True"/>
+        <RadioButton x:Name="rdFemale" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Content="女" Margin="50,0,0,0"/>
+        <TextBox x:Name="txbAge" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+        <TextBox x:Name="txbTel" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+        <TextBox x:Name="txbStuNum" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+        <TextBox x:Name="txbPrice" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+        <CheckBox x:Name="ckbDiscount" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="有促销"/>
+        <ComboBox x:Name="cmbFullJob" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" SelectedIndex="0">
+            <ComboBoxItem>全职</ComboBoxItem>
+            <ComboBoxItem>兼职</ComboBoxItem>
+            <ComboBoxItem>老板</ComboBoxItem>
+        </ComboBox>
+        <TextBox x:Name="txbCompany" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"/>
+        <TextBox x:Name="txbMotherLand" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"/>
+        <TextBox x:Name="txbScore" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"/>
+
+
+
+
+        <Grid Grid.Row="8" Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnOk" Content="确认" Height="30" Width="100"/>
+            <Button x:Name="btnCancel" Content="取消" Grid.Column="1" Width="100" Height="30"/>
+        </Grid>
+
+    </Grid>
+</Window>

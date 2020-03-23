@@ -10,25 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FriendshipMngSys
+namespace FriendshipMngSys.Views
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// PersonEditWnd.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PersonEditWnd : Window
     {
-        public MainWindow()
+        public PersonEditWnd()
         {
             InitializeComponent();
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Views.PersonEditWnd wnd = new Views.PersonEditWnd();
-            wnd.ShowDialog();
         }
     }
 }
