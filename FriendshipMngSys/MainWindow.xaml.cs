@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FriendshipMngSys.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,7 @@ namespace FriendshipMngSys
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            SQLiteHelper.ExcuteReader("");
             Views.PersonEditWnd wnd = new Views.PersonEditWnd();
             wnd.ShowDialog();
         }
