@@ -28,7 +28,8 @@ namespace FriendshipMngSys
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            SQLiteHelper.ExcuteReader("");
+            var list = SQLiteHelper.GetTableBySQL("select * from Persons");
+            
             Views.PersonEditWnd wnd = new Views.PersonEditWnd();
             wnd.ShowDialog();
         }

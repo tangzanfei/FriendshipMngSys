@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.IO;
 using System.Data.SQLite;
+using System.Data;
 
 namespace FriendshipMngSys.Services
 {
@@ -98,8 +99,8 @@ namespace FriendshipMngSys.Services
 
             //这里不能用using，不然在返回SqlDataReader时候会报错，因为返回时候已经在using中关闭了。
             //事实上，在使用数据库相关类中，SqlConnection是必须关闭的，但是其他可以选择关闭，因为CG回自动回收
-            SQLiteConnection conn = new SQLiteConnection(conStr);
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+            SQLiteConnection m_Connection = new SQLiteConnection(conStr);
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, m_Connection))
             {
                 if (pms != null)
                 {
@@ -107,17 +108,45 @@ namespace FriendshipMngSys.Services
                 }
                 try
                 {
-                    conn.Open();
+                    m_Connection.Open();
                     //传入System.Data.CommandBehavior.CloseConnection枚举是为了让在外面使用完毕SqlDataReader后，只要关闭了SqlDataReader就会关闭对应的SqlConnection
                     return cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
                 }
                 catch
                 {
-                    conn.Close();
-                    conn.Dispose();
+                    m_Connection.Close();
+                    m_Connection.Dispose();
                     throw;
                 }
             }
         }
+
+
+        public static DataRow GetRowBySQL(string strSQL)
+        {
+            DataTable dTable = GetTableBySQL(strSQL);
+
+            if (dTable.Rows.Count == 0)
+                return null;
+            else
+                return dTable.Rows[0];
+        }
+        public static DataTable GetTableBySQL(string strSQL, bool bAddWithKey = false)
+        {
+            SQLiteConnection m_Connection = new SQLiteConnection(conStr);
+
+            SQLiteCommand selectCommand = new SQLiteCommand(null, m_Connection)
+            {
+                CommandType = CommandType.Text,
+                CommandText = strSQL
+            };
+            System.Data.SQLite.SQLiteDataAdapter adapter = new System.Data.SQLite.SQLiteDataAdapter(selectCommand);
+            if (bAddWithKey) adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+            DataTable dataTable = new DataTable();
+            adapter.Fill(dataTable);
+            return dataTable;
+        }
+
+
     }
 }
