@@ -8,7 +8,7 @@ using System.IO;
 using System.Data.SQLite;
 using System.Data;
 
-namespace FriendshipMngSys.Services
+namespace FriendshipMngSys.DBUtility
 {
     class SqlService
     {
@@ -144,6 +144,7 @@ namespace FriendshipMngSys.Services
             if (bAddWithKey) adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
+            
             return dataTable;
         }
 

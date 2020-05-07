@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Maticsoft.Common">
+      <HintPath>C:\Users\Administrator\Desktop\test\CodematicDemo\Lib\Maticsoft.Common.dll</HintPath>
+    </Reference>
     <Reference Include="SQLite.Designer">
       <HintPath>C:\Users\Administrator\Desktop\sqlite-netFx20-static-binary-x64-2005-1.0.112.0\SQLite.Designer.dll</HintPath>
     </Reference>
@@ -63,7 +66,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Services\SqlService.cs" />
+    <Compile Include="BLL\CompanyBLL.cs" />
+    <Compile Include="BLL\CompanyShipBLL.cs" />
+    <Compile Include="BLL\FriendshipBLL.cs" />
+    <Compile Include="BLL\PersonsBLL.cs" />
+    <Compile Include="BLL\ScoreDetailBLL.cs" />
+    <Compile Include="DAL\CompanyDAL.cs" />
+    <Compile Include="DAL\CompanyShipDAL.cs" />
+    <Compile Include="DAL\FriendshipDAL.cs" />
+    <Compile Include="DAL\PersonsDAL.cs" />
+    <Compile Include="DAL\ScoreDetailDAL.cs" />
+    <Compile Include="Model\DBCompany.cs" />
+    <Compile Include="Model\DBCompanyShip.cs" />
+    <Compile Include="Model\DBFriendship.cs" />
+    <Compile Include="Model\DBPersons.cs" />
+    <Compile Include="Model\DBScoreDetail.cs" />
+    <Compile Include="DBUtility\CommandInfo.cs" />
+    <Compile Include="DBUtility\DbHelperSQL.cs" />
+    <Compile Include="DBUtility\DbHelperSQLite.cs" />
+    <Compile Include="DBUtility\SqlService.cs" />
     <Compile Include="Views\FriendEdit.xaml.cs">
       <DependentUpon>FriendEdit.xaml</DependentUpon>
     </Compile>
@@ -119,5 +140,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
