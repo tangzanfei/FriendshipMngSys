@@ -24,7 +24,22 @@ namespace FriendshipMngSys.Views
         {
             InitializeComponent();
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        public bool IsReadOnly 
+        {
+            get
+            {
+                return !girdData.IsEnabled;
+            }
+            set 
+            {
+                girdData.IsEnabled = !value;
+            }
+        }
         public Person Person
         {
             get { return VM.Person; }
@@ -42,10 +57,6 @@ namespace FriendshipMngSys.Views
         }
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {

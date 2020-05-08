@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace FriendshipMngSys.ViewModels
 {
-    public class PersonEditViewModel
+    public class PersonEditViewModel:NotifyBase
     {
         private Person mPerson=new Person();
 
         public Person Person
         {
             get { return mPerson; }
-            set { mPerson = value; }
+            set { mPerson = value; NotifyPropertyChange("Person"); }
         }
 
 

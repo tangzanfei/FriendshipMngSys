@@ -158,6 +158,9 @@ namespace FriendshipMngSys.Model
             set { hadDiscount = value; NotifyPropertyChange("HadDiscount"); }
         }
 
-
+        public Person Copy()
+        {
+            return (Person)this.MemberwiseClone();
+        }
     }
 }

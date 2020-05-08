@@ -6,11 +6,20 @@
         xmlns:local="clr-namespace:FriendshipMngSys.Views"
         xmlns:vm="clr-namespace:FriendshipMngSys.ViewModels"
         mc:Ignorable="d"
-        Title="人员信息" Height="500" Width="450" Loaded="Window_Loaded">
+        Title="人员信息" Height="500" Width="450" Loaded="Window_Loaded" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
         <vm:PersonEditViewModel x:Name="VM" />
     </Window.DataContext>
-    <Grid>
+    <DockPanel>
+        <Grid DockPanel.Dock="Bottom" Height="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnOk" Content="确认" Height="30" Width="100" IsDefault="True" Click="btnOk_Click"/>
+            <Button x:Name="btnCancel" Content="取消" Grid.Column="1" Width="100" Height="30" IsCancel="True" Click="btnCancel_Click"/>
+        </Grid>
+        <Grid x:Name="girdData">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
@@ -24,7 +33,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="姓名"/>
         <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="性别"/>
@@ -50,14 +58,7 @@
 
 
 
-        <Grid Grid.Row="8" Grid.ColumnSpan="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="btnOk" Content="确认" Height="30" Width="100" IsDefault="True" Click="btnOk_Click"/>
-            <Button x:Name="btnCancel" Content="取消" Grid.Column="1" Width="100" Height="30" IsCancel="True" Click="btnCancel_Click"/>
-        </Grid>
 
     </Grid>
+    </DockPanel>
 </Window>

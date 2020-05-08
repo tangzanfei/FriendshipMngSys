@@ -35,12 +35,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Lib\512x512.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Maticsoft.Common">
       <HintPath>C:\Users\Administrator\Desktop\test\CodematicDemo\Lib\Maticsoft.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLite.Designer">
-      <HintPath>C:\Users\Administrator\Desktop\sqlite-netFx20-static-binary-x64-2005-1.0.112.0\SQLite.Designer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -72,6 +72,8 @@
     <Compile Include="BLL\FriendshipBLL.cs" />
     <Compile Include="BLL\PersonBLL.cs" />
     <Compile Include="BLL\ScoreDetailBLL.cs" />
+    <Compile Include="Converter\ObjectConverter.cs" />
+    <Compile Include="Converter\NullToEnableConverter.cs" />
     <Compile Include="DAL\CompanyDAL.cs" />
     <Compile Include="DAL\CompanyShipDAL.cs" />
     <Compile Include="DAL\FriendshipDAL.cs" />
@@ -153,12 +155,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Lib\Maticsoft.Common.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Lib\System.Data.SQLite.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Lib\512x512.ico" />
+    <Content Include="Lib\Maticsoft.Common.dll" />
+    <Content Include="Lib\System.Data.SQLite.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

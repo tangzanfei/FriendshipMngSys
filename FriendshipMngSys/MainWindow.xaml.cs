@@ -27,7 +27,21 @@ namespace FriendshipMngSys
             InitializeComponent();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            FriendshipMngSys.BLL.PersonBLL personBll = new BLL.PersonBLL();
+            var pernsonList = personBll.GetModelList("");
+            List<Person> pensonList = new List<Person>();
+            foreach (var p in pernsonList)
+            {
+                pensonList.Add(ModelConvertHelper.DBToModel(p));
+            }
+            VM.PersonList = new System.Collections.ObjectModel.ObservableCollection<Person>(pensonList);
+        }
+
+
+
+        private void MenuItemAddPerson_Click(object sender, RoutedEventArgs e)
         {
             //var list = SQLiteHelper.GetTableBySQL("select * from Persons");
             
@@ -48,16 +62,64 @@ namespace FriendshipMngSys
 
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void MenuItemEditPerson_Click(object sender, RoutedEventArgs e)
         {
-            FriendshipMngSys.BLL.PersonBLL personBll = new BLL.PersonBLL();
-            var pernsonList = personBll.GetModelList("");
-            List<Person> pensonList = new List<Person>();
-            foreach (var p in pernsonList)
+            var p = VM.SelectedPerson;
+            
+            Views.PersonEditWnd wnd = new Views.PersonEditWnd();
+            wnd.Person = p.Copy();
+            if (wnd.ShowDialog() ?? false)
             {
-                pensonList.Add(ModelConvertHelper.DBToModel(p));
+                //点击了确认
+
+                int index=VM.PersonList.IndexOf(p);
+                VM.PersonList[index] = p = wnd.Person;
+                FriendshipMngSys.BLL.PersonBLL personBll = new BLL.PersonBLL();
+                DBPerson db = ModelConvertHelper.ModelToDB(p);
+                personBll.Update(db);
+
             }
-            VM.PersonList = new System.Collections.ObjectModel.ObservableCollection<Person>(pensonList);
+            else
+            {
+                //点击了取消
+            }
+
+        }
+
+        private void MenuItemDelPerson_Click(object sender, RoutedEventArgs e)
+        {
+            var p = VM.SelectedPerson;
+
+            Views.PersonEditWnd wnd = new Views.PersonEditWnd();
+            wnd.Person = p.Copy();
+            wnd.IsReadOnly = true;
+            if (wnd.ShowDialog() ?? false)
+            {
+                //点击了确认
+                VM.PersonList.Remove(p);
+
+                FriendshipMngSys.BLL.PersonBLL personBll = new BLL.PersonBLL();
+                if(personBll.Delete(p.ID))
+                {
+                    MessageBox.Show("删除成功");
+                }
+                else
+                {
+                    MessageBox.Show("删除失败");
+                }
+
+
+            }
+            else
+            {
+                //点击了取消
+            }
+
+        }
+
+        private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MenuItemEditPerson_Click(sender, e);
         }
     }
 }

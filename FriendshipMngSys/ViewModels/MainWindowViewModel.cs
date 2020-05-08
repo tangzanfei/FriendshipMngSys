@@ -23,7 +23,7 @@ namespace FriendshipMngSys.ViewModels
         }
 
 
-        private Person mSelectedPerson=new Person();
+        private Person mSelectedPerson;
 
         public Person SelectedPerson
         {

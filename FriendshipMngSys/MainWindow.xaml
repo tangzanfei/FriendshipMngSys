@@ -6,8 +6,13 @@
         xmlns:local="clr-namespace:FriendshipMngSys"
         xmlns:view="clr-namespace:FriendshipMngSys.Views"
         xmlns:vm="clr-namespace:FriendshipMngSys.ViewModels"
+        xmlns:convert="clr-namespace:FriendshipMngSys.Converter"
         mc:Ignorable="d"
         Title="王氏人脉管理系统" Height="1060" Width="1600" WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded">
+    <Window.Resources>
+        <convert:NullToEnableConverter x:Key="NullToEnableConverter"/>
+        <convert:ObjectConverter x:Key="ObjectConverter"/>
+    </Window.Resources>
     <Window.DataContext>
         <vm:MainWindowViewModel x:Name="VM"/>
     </Window.DataContext>
@@ -26,9 +31,9 @@
         </view:FriendShipView>
         <Menu x:Name="menu" Grid.ColumnSpan="2">
             <MenuItem Header="人员操作">
-                <MenuItem Header="新增" Click="MenuItem_Click"/>
-                <MenuItem Header="编辑"/>
-                <MenuItem Header="删除"/>
+                <MenuItem Header="新增" Click="MenuItemAddPerson_Click"/>
+                <MenuItem Header="编辑" Click="MenuItemEditPerson_Click" IsEnabled="{Binding SelectedPerson, Converter={StaticResource NullToEnableConverter}}" />
+                <MenuItem Header="删除" Click="MenuItemDelPerson_Click" IsEnabled="{Binding SelectedPerson, Converter={StaticResource NullToEnableConverter}}"/>
             </MenuItem>
             <MenuItem Header="关系网操作">
                 <MenuItem Header="添加朋友"/>
@@ -48,11 +53,11 @@
                 <Button x:Name="button" Content="查找" HorizontalAlignment="Left" Margin="227,13,0,0" VerticalAlignment="Top" Width="75"/>
             </Grid>
         </GroupBox>
-        <ListView x:Name="listView" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding PersonList}" SelectedValue="{Binding SelectedPerson, Mode=TwoWay}">
+        <ListView x:Name="listView" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding PersonList}" SelectedValue="{Binding SelectedPerson, Mode=TwoWay}" MouseDoubleClick="listView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="姓名" Width="100" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="性别" Width="50" DisplayMemberBinding="{Binding IsFemale}"/>
+                    <GridViewColumn Header="性别" Width="50" DisplayMemberBinding="{Binding IsFemale, Converter={StaticResource ObjectConverter},ConverterParameter=false:男:女}"/>
                     <GridViewColumn Header="年龄" Width="50" DisplayMemberBinding="{Binding Age}"/>
                     <!--<GridViewColumn Header="机构" Width="150"/>-->
                     <GridViewColumn Header="电话" Width="150" DisplayMemberBinding="{Binding Tel}"/>
@@ -61,7 +66,7 @@
                     <GridViewColumn Header="祖籍" Width="250" DisplayMemberBinding="{Binding Birthplace}"/>
                     <GridViewColumn Header="学生数" Width="100" DisplayMemberBinding="{Binding StuNum}"/>
                     <GridViewColumn Header="课时费" Width="100" DisplayMemberBinding="{Binding Hourlypay}"/>
-                    <GridViewColumn Header="折扣" Width="50" DisplayMemberBinding="{Binding HadDiscount}"/>
+                    <GridViewColumn Header="折扣" Width="50" DisplayMemberBinding="{Binding HadDiscount, Converter={StaticResource ObjectConverter},ConverterParameter=true:有:无}"/>
                 </GridView>
             </ListView.View>
         </ListView>
