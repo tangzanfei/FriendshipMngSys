@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* PersonsBLL.cs
+* PersonBLL.cs
 *
 * 功 能： N/A
-* 类 名： PersonsBLL
+* 类 名： PersonBLL
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/7 星期四 下午 5:19:17   N/A    初版
+* V0.01  2020/5/8 星期五 下午 4:19:56   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -22,27 +22,18 @@ using FriendshipMngSys.Model;
 namespace FriendshipMngSys.BLL
 {
 	/// <summary>
-	/// PersonsBLL
+	/// PersonBLL
 	/// </summary>
-	public partial class PersonsBLL
+	public partial class PersonBLL
 	{
-		private readonly FriendshipMngSys.DAL.PersonsDAL dal=new FriendshipMngSys.DAL.PersonsDAL();
-		public PersonsBLL()
+		private readonly FriendshipMngSys.DAL.PersonDAL dal=new FriendshipMngSys.DAL.PersonDAL();
+		public PersonBLL()
 		{}
 		#region  BasicMethod
-
-		/// <summary>
-		/// 得到最大ID
-		/// </summary>
-		public int GetMaxId()
-		{
-			return dal.GetMaxId();
-		}
-
 		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(int ID)
+		public bool Exists(string ID)
 		{
 			return dal.Exists(ID);
 		}
@@ -50,7 +41,7 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public int  Add(FriendshipMngSys.Model.DBPersons model)
+		public bool Add(FriendshipMngSys.Model.DBPerson model)
 		{
 			return dal.Add(model);
 		}
@@ -58,7 +49,7 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 更新一条数据
 		/// </summary>
-		public bool Update(FriendshipMngSys.Model.DBPersons model)
+		public bool Update(FriendshipMngSys.Model.DBPerson model)
 		{
 			return dal.Update(model);
 		}
@@ -66,7 +57,7 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(int ID)
+		public bool Delete(string ID)
 		{
 			
 			return dal.Delete(ID);
@@ -82,7 +73,7 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public FriendshipMngSys.Model.DBPersons GetModel(int ID)
+		public FriendshipMngSys.Model.DBPerson GetModel(string ID)
 		{
 			
 			return dal.GetModel(ID);
@@ -91,10 +82,10 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 得到一个对象实体，从缓存中
 		/// </summary>
-		public FriendshipMngSys.Model.DBPersons GetModelByCache(int ID)
+		public FriendshipMngSys.Model.DBPerson GetModelByCache(string ID)
 		{
 			
-			string CacheKey = "DBPersonsModel-" + ID;
+			string CacheKey = "DBPersonModel-" + ID;
 			object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
 			{
@@ -109,7 +100,7 @@ namespace FriendshipMngSys.BLL
 				}
 				catch{}
 			}
-			return (FriendshipMngSys.Model.DBPersons)objModel;
+			return (FriendshipMngSys.Model.DBPerson)objModel;
 		}
 
 		/// <summary>
@@ -122,7 +113,7 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>
-		public List<FriendshipMngSys.Model.DBPersons> GetModelList(string strWhere)
+		public List<FriendshipMngSys.Model.DBPerson> GetModelList(string strWhere)
 		{
 			DataSet ds = dal.GetList(strWhere);
 			return DataTableToList(ds.Tables[0]);
@@ -130,13 +121,13 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>
-		public List<FriendshipMngSys.Model.DBPersons> DataTableToList(DataTable dt)
+		public List<FriendshipMngSys.Model.DBPerson> DataTableToList(DataTable dt)
 		{
-			List<FriendshipMngSys.Model.DBPersons> modelList = new List<FriendshipMngSys.Model.DBPersons>();
+			List<FriendshipMngSys.Model.DBPerson> modelList = new List<FriendshipMngSys.Model.DBPerson>();
 			int rowsCount = dt.Rows.Count;
 			if (rowsCount > 0)
 			{
-				FriendshipMngSys.Model.DBPersons model;
+				FriendshipMngSys.Model.DBPerson model;
 				for (int n = 0; n < rowsCount; n++)
 				{
 					model = dal.DataRowToModel(dt.Rows[n]);

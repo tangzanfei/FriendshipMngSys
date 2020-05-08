@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/7 星期四 下午 5:19:17   N/A    初版
+* V0.01  2020/5/8 星期五 下午 4:19:56   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -31,24 +31,15 @@ namespace FriendshipMngSys.DAL
 		#region  BasicMethod
 
 		/// <summary>
-		/// 得到最大ID
-		/// </summary>
-		public int GetMaxId()
-		{
-		return DbHelperSQLite.GetMaxID("ID", "ScoreDetail"); 
-		}
-
-		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(int ID)
+		public bool Exists(string ID)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from ScoreDetail");
-			strSql.Append(" where ID=@ID");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@ID", DbType.Int32,4)
-			};
+					new SQLiteParameter("@ID", DbType.String,2147483647)			};
 			parameters[0].Value = ID;
 
 			return DbHelperSQLite.Exists(strSql.ToString(),parameters);
@@ -58,16 +49,16 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public int Add(FriendshipMngSys.Model.DBScoreDetail model)
+		public bool Add(FriendshipMngSys.Model.DBScoreDetail model)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into ScoreDetail(");
-			strSql.Append("PersonID,课时费高,学生多,已备案,已买教学琴,参加比赛,参加多钢琴,租场,成交,调律)");
+			strSql.Append("ID,PersonID,课时费高,学生多,已备案,已买教学琴,参加比赛,参加多钢琴,租场,成交,调律)");
 			strSql.Append(" values (");
-			strSql.Append("@PersonID,@课时费高,@学生多,@已备案,@已买教学琴,@参加比赛,@参加多钢琴,@租场,@成交,@调律)");
-			strSql.Append(";select LAST_INSERT_ROWID()");
+			strSql.Append("@ID,@PersonID,@课时费高,@学生多,@已备案,@已买教学琴,@参加比赛,@参加多钢琴,@租场,@成交,@调律)");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@PersonID", DbType.Int32,8),
+					new SQLiteParameter("@ID", DbType.String,2147483647),
+					new SQLiteParameter("@PersonID", DbType.String,2147483647),
 					new SQLiteParameter("@课时费高", DbType.Int32,4),
 					new SQLiteParameter("@学生多", DbType.Int32,4),
 					new SQLiteParameter("@已备案", DbType.Int32,4),
@@ -77,25 +68,26 @@ namespace FriendshipMngSys.DAL
 					new SQLiteParameter("@租场", DbType.Int32,4),
 					new SQLiteParameter("@成交", DbType.Int32,4),
 					new SQLiteParameter("@调律", DbType.Int32,4)};
-			parameters[0].Value = model.PersonID;
-			parameters[1].Value = model.课时费高;
-			parameters[2].Value = model.学生多;
-			parameters[3].Value = model.已备案;
-			parameters[4].Value = model.已买教学琴;
-			parameters[5].Value = model.参加比赛;
-			parameters[6].Value = model.参加多钢琴;
-			parameters[7].Value = model.租场;
-			parameters[8].Value = model.成交;
-			parameters[9].Value = model.调律;
+			parameters[0].Value = model.ID;
+			parameters[1].Value = model.PersonID;
+			parameters[2].Value = model.课时费高;
+			parameters[3].Value = model.学生多;
+			parameters[4].Value = model.已备案;
+			parameters[5].Value = model.已买教学琴;
+			parameters[6].Value = model.参加比赛;
+			parameters[7].Value = model.参加多钢琴;
+			parameters[8].Value = model.租场;
+			parameters[9].Value = model.成交;
+			parameters[10].Value = model.调律;
 
-			object obj = DbHelperSQLite.GetSingle(strSql.ToString(),parameters);
-			if (obj == null)
+			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString(),parameters);
+			if (rows > 0)
 			{
-				return 0;
+				return true;
 			}
 			else
 			{
-				return Convert.ToInt32(obj);
+				return false;
 			}
 		}
 		/// <summary>
@@ -115,9 +107,9 @@ namespace FriendshipMngSys.DAL
 			strSql.Append("租场=@租场,");
 			strSql.Append("成交=@成交,");
 			strSql.Append("调律=@调律");
-			strSql.Append(" where ID=@ID");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@PersonID", DbType.Int32,8),
+					new SQLiteParameter("@PersonID", DbType.String,2147483647),
 					new SQLiteParameter("@课时费高", DbType.Int32,4),
 					new SQLiteParameter("@学生多", DbType.Int32,4),
 					new SQLiteParameter("@已备案", DbType.Int32,4),
@@ -127,7 +119,7 @@ namespace FriendshipMngSys.DAL
 					new SQLiteParameter("@租场", DbType.Int32,4),
 					new SQLiteParameter("@成交", DbType.Int32,4),
 					new SQLiteParameter("@调律", DbType.Int32,4),
-					new SQLiteParameter("@ID", DbType.Int32,8)};
+					new SQLiteParameter("@ID", DbType.String,2147483647)};
 			parameters[0].Value = model.PersonID;
 			parameters[1].Value = model.课时费高;
 			parameters[2].Value = model.学生多;
@@ -154,15 +146,14 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(int ID)
+		public bool Delete(string ID)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from ScoreDetail ");
-			strSql.Append(" where ID=@ID");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@ID", DbType.Int32,4)
-			};
+					new SQLiteParameter("@ID", DbType.String,2147483647)			};
 			parameters[0].Value = ID;
 
 			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString(),parameters);
@@ -198,15 +189,14 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public FriendshipMngSys.Model.DBScoreDetail GetModel(int ID)
+		public FriendshipMngSys.Model.DBScoreDetail GetModel(string ID)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select ID,PersonID,课时费高,学生多,已备案,已买教学琴,参加比赛,参加多钢琴,租场,成交,调律 from ScoreDetail ");
-			strSql.Append(" where ID=@ID");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@ID", DbType.Int32,4)
-			};
+					new SQLiteParameter("@ID", DbType.String,2147483647)			};
 			parameters[0].Value = ID;
 
 			FriendshipMngSys.Model.DBScoreDetail model=new FriendshipMngSys.Model.DBScoreDetail();
@@ -230,13 +220,13 @@ namespace FriendshipMngSys.DAL
 			FriendshipMngSys.Model.DBScoreDetail model=new FriendshipMngSys.Model.DBScoreDetail();
 			if (row != null)
 			{
-				if(row["ID"]!=null && row["ID"].ToString()!="")
+				if(row["ID"]!=null)
 				{
-					model.ID=int.Parse(row["ID"].ToString());
+					model.ID=row["ID"].ToString();
 				}
-				if(row["PersonID"]!=null && row["PersonID"].ToString()!="")
+				if(row["PersonID"]!=null)
 				{
-					model.PersonID=int.Parse(row["PersonID"].ToString());
+					model.PersonID=row["PersonID"].ToString();
 				}
 				if(row["课时费高"]!=null && row["课时费高"].ToString()!="")
 				{

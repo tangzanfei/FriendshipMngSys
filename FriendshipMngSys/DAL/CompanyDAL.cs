@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/7 星期四 下午 5:19:16   N/A    初版
+* V0.01  2020/5/8 星期五 下午 4:19:54   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -31,24 +31,15 @@ namespace FriendshipMngSys.DAL
 		#region  BasicMethod
 
 		/// <summary>
-		/// 得到最大ID
-		/// </summary>
-		public int GetMaxId()
-		{
-		return DbHelperSQLite.GetMaxID("ID", "Company"); 
-		}
-
-		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(int ID)
+		public bool Exists(string ID)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from Company");
-			strSql.Append(" where ID=@ID");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@ID", DbType.Int32,4)
-			};
+					new SQLiteParameter("@ID", DbType.String,2147483647)			};
 			parameters[0].Value = ID;
 
 			return DbHelperSQLite.Exists(strSql.ToString(),parameters);
@@ -58,28 +49,29 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public int Add(FriendshipMngSys.Model.DBCompany model)
+		public bool Add(FriendshipMngSys.Model.DBCompany model)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into Company(");
-			strSql.Append("Name,Localtion)");
+			strSql.Append("ID,Name,Localtion)");
 			strSql.Append(" values (");
-			strSql.Append("@Name,@Localtion)");
-			strSql.Append(";select LAST_INSERT_ROWID()");
+			strSql.Append("@ID,@Name,@Localtion)");
 			SQLiteParameter[] parameters = {
+					new SQLiteParameter("@ID", DbType.String,2147483647),
 					new SQLiteParameter("@Name", DbType.String,2147483647),
 					new SQLiteParameter("@Localtion", DbType.String,2147483647)};
-			parameters[0].Value = model.Name;
-			parameters[1].Value = model.Localtion;
+			parameters[0].Value = model.ID;
+			parameters[1].Value = model.Name;
+			parameters[2].Value = model.Localtion;
 
-			object obj = DbHelperSQLite.GetSingle(strSql.ToString(),parameters);
-			if (obj == null)
+			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString(),parameters);
+			if (rows > 0)
 			{
-				return 0;
+				return true;
 			}
 			else
 			{
-				return Convert.ToInt32(obj);
+				return false;
 			}
 		}
 		/// <summary>
@@ -91,11 +83,11 @@ namespace FriendshipMngSys.DAL
 			strSql.Append("update Company set ");
 			strSql.Append("Name=@Name,");
 			strSql.Append("Localtion=@Localtion");
-			strSql.Append(" where ID=@ID");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
 					new SQLiteParameter("@Name", DbType.String,2147483647),
 					new SQLiteParameter("@Localtion", DbType.String,2147483647),
-					new SQLiteParameter("@ID", DbType.Int32,8)};
+					new SQLiteParameter("@ID", DbType.String,2147483647)};
 			parameters[0].Value = model.Name;
 			parameters[1].Value = model.Localtion;
 			parameters[2].Value = model.ID;
@@ -114,15 +106,14 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(int ID)
+		public bool Delete(string ID)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Company ");
-			strSql.Append(" where ID=@ID");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@ID", DbType.Int32,4)
-			};
+					new SQLiteParameter("@ID", DbType.String,2147483647)			};
 			parameters[0].Value = ID;
 
 			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString(),parameters);
@@ -158,15 +149,14 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public FriendshipMngSys.Model.DBCompany GetModel(int ID)
+		public FriendshipMngSys.Model.DBCompany GetModel(string ID)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select ID,Name,Localtion from Company ");
-			strSql.Append(" where ID=@ID");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@ID", DbType.Int32,4)
-			};
+					new SQLiteParameter("@ID", DbType.String,2147483647)			};
 			parameters[0].Value = ID;
 
 			FriendshipMngSys.Model.DBCompany model=new FriendshipMngSys.Model.DBCompany();
@@ -190,9 +180,9 @@ namespace FriendshipMngSys.DAL
 			FriendshipMngSys.Model.DBCompany model=new FriendshipMngSys.Model.DBCompany();
 			if (row != null)
 			{
-				if(row["ID"]!=null && row["ID"].ToString()!="")
+				if(row["ID"]!=null)
 				{
-					model.ID=int.Parse(row["ID"].ToString());
+					model.ID=row["ID"].ToString();
 				}
 				if(row["Name"]!=null)
 				{

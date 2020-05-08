@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/7 星期四 下午 5:19:17   N/A    初版
+* V0.01  2020/5/8 星期五 下午 4:19:56   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -26,21 +26,21 @@ namespace FriendshipMngSys.Model
 		public DBScoreDetail()
 		{}
 		#region Model
-		private int _id;
-		private int? _personid;
-		private int? _课时费高;
-		private int? _学生多;
-		private int? _已备案;
-		private int? _已买教学琴;
-		private int? _参加比赛;
-		private int? _参加多钢琴;
-		private int? _租场;
-		private int? _成交;
-		private int? _调律;
+		private string _id;
+		private string _personid;
+		private int _课时费高=0;
+		private int _学生多=0;
+		private int _已备案=0;
+		private int _已买教学琴=0;
+		private int _参加比赛=0;
+		private int _参加多钢琴=0;
+		private int _租场=0;
+		private int _成交=0;
+		private int _调律=0;
 		/// <summary>
 		/// 
 		/// </summary>
-		public int ID
+		public string ID
 		{
 			set{ _id=value;}
 			get{return _id;}
@@ -48,7 +48,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? PersonID
+		public string PersonID
 		{
 			set{ _personid=value;}
 			get{return _personid;}
@@ -56,7 +56,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? 课时费高
+		public int 课时费高
 		{
 			set{ _课时费高=value;}
 			get{return _课时费高;}
@@ -64,7 +64,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? 学生多
+		public int 学生多
 		{
 			set{ _学生多=value;}
 			get{return _学生多;}
@@ -72,7 +72,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? 已备案
+		public int 已备案
 		{
 			set{ _已备案=value;}
 			get{return _已备案;}
@@ -80,7 +80,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? 已买教学琴
+		public int 已买教学琴
 		{
 			set{ _已买教学琴=value;}
 			get{return _已买教学琴;}
@@ -88,7 +88,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? 参加比赛
+		public int 参加比赛
 		{
 			set{ _参加比赛=value;}
 			get{return _参加比赛;}
@@ -96,7 +96,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? 参加多钢琴
+		public int 参加多钢琴
 		{
 			set{ _参加多钢琴=value;}
 			get{return _参加多钢琴;}
@@ -104,7 +104,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? 租场
+		public int 租场
 		{
 			set{ _租场=value;}
 			get{return _租场;}
@@ -112,7 +112,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? 成交
+		public int 成交
 		{
 			set{ _成交=value;}
 			get{return _成交;}
@@ -120,7 +120,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? 调律
+		public int 调律
 		{
 			set{ _调律=value;}
 			get{return _调律;}

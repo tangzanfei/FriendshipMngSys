@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/7 星期四 下午 6:15:00   N/A    初版
+* V0.01  2020/5/8 星期五 下午 4:19:55   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -26,14 +26,14 @@ namespace FriendshipMngSys.Model
 		public DBCompanyShip()
 		{}
 		#region Model
-		private int _id;
-		private int _companyid;
-		private int _personid;
+		private string _id;
+		private string _companyid;
+		private string _personid;
 		private int _jobtype=0;
 		/// <summary>
 		/// 
 		/// </summary>
-		public int ID
+		public string ID
 		{
 			set{ _id=value;}
 			get{return _id;}
@@ -41,7 +41,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int CompanyID
+		public string CompanyID
 		{
 			set{ _companyid=value;}
 			get{return _companyid;}
@@ -49,7 +49,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int PersonID
+		public string PersonID
 		{
 			set{ _personid=value;}
 			get{return _personid;}

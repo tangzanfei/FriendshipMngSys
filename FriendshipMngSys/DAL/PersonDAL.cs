@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* PersonsDAL.cs
+* PersonDAL.cs
 *
 * 功 能： N/A
-* 类 名： PersonsDAL
+* 类 名： PersonDAL
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/7 星期四 下午 5:19:17   N/A    初版
+* V0.01  2020/5/8 星期五 下午 4:19:56   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -22,33 +22,24 @@ using FriendshipMngSys.DBUtility;//Please add references
 namespace FriendshipMngSys.DAL
 {
 	/// <summary>
-	/// 数据访问类:PersonsDAL
+	/// 数据访问类:PersonDAL
 	/// </summary>
-	public partial class PersonsDAL
+	public partial class PersonDAL
 	{
-		public PersonsDAL()
+		public PersonDAL()
 		{}
 		#region  BasicMethod
 
 		/// <summary>
-		/// 得到最大ID
-		/// </summary>
-		public int GetMaxId()
-		{
-		return DbHelperSQLite.GetMaxID("ID", "Persons"); 
-		}
-
-		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(int ID)
+		public bool Exists(string ID)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select count(1) from Persons");
-			strSql.Append(" where ID=@ID");
+			strSql.Append("select count(1) from Person");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@ID", DbType.Int32,4)
-			};
+					new SQLiteParameter("@ID", DbType.String,2147483647)			};
 			parameters[0].Value = ID;
 
 			return DbHelperSQLite.Exists(strSql.ToString(),parameters);
@@ -58,15 +49,15 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public int Add(FriendshipMngSys.Model.DBPersons model)
+		public bool Add(FriendshipMngSys.Model.DBPerson model)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("insert into Persons(");
-			strSql.Append("Name,Age,IsFemale,StuNum,Birthplace,Tel,JobType,Hourlypay,HadDiscount,Score,CompanyID)");
+			strSql.Append("insert into Person(");
+			strSql.Append("ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,JobType,Hourlypay,HadDiscount,Score)");
 			strSql.Append(" values (");
-			strSql.Append("@Name,@Age,@IsFemale,@StuNum,@Birthplace,@Tel,@JobType,@Hourlypay,@HadDiscount,@Score,@CompanyID)");
-			strSql.Append(";select LAST_INSERT_ROWID()");
+			strSql.Append("@ID,@Name,@Age,@IsFemale,@StuNum,@Birthplace,@Tel,@JobType,@Hourlypay,@HadDiscount,@Score)");
 			SQLiteParameter[] parameters = {
+					new SQLiteParameter("@ID", DbType.String,2147483647),
 					new SQLiteParameter("@Name", DbType.String),
 					new SQLiteParameter("@Age", DbType.Int32,4),
 					new SQLiteParameter("@IsFemale", DbType.Boolean),
@@ -76,37 +67,36 @@ namespace FriendshipMngSys.DAL
 					new SQLiteParameter("@JobType", DbType.Int32,4),
 					new SQLiteParameter("@Hourlypay", DbType.Int32,4),
 					new SQLiteParameter("@HadDiscount", DbType.Boolean),
-					new SQLiteParameter("@Score", DbType.Int32,4),
-					new SQLiteParameter("@CompanyID", DbType.Int32,4)};
-			parameters[0].Value = model.Name;
-			parameters[1].Value = model.Age;
-			parameters[2].Value = model.IsFemale;
-			parameters[3].Value = model.StuNum;
-			parameters[4].Value = model.Birthplace;
-			parameters[5].Value = model.Tel;
-			parameters[6].Value = model.JobType;
-			parameters[7].Value = model.Hourlypay;
-			parameters[8].Value = model.HadDiscount;
-			parameters[9].Value = model.Score;
-			parameters[10].Value = model.CompanyID;
+					new SQLiteParameter("@Score", DbType.Int32,4)};
+			parameters[0].Value = model.ID;
+			parameters[1].Value = model.Name;
+			parameters[2].Value = model.Age;
+			parameters[3].Value = model.IsFemale;
+			parameters[4].Value = model.StuNum;
+			parameters[5].Value = model.Birthplace;
+			parameters[6].Value = model.Tel;
+			parameters[7].Value = model.JobType;
+			parameters[8].Value = model.Hourlypay;
+			parameters[9].Value = model.HadDiscount;
+			parameters[10].Value = model.Score;
 
-			object obj = DbHelperSQLite.GetSingle(strSql.ToString(),parameters);
-			if (obj == null)
+			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString(),parameters);
+			if (rows > 0)
 			{
-				return 0;
+				return true;
 			}
 			else
 			{
-				return Convert.ToInt32(obj);
+				return false;
 			}
 		}
 		/// <summary>
 		/// 更新一条数据
 		/// </summary>
-		public bool Update(FriendshipMngSys.Model.DBPersons model)
+		public bool Update(FriendshipMngSys.Model.DBPerson model)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("update Persons set ");
+			strSql.Append("update Person set ");
 			strSql.Append("Name=@Name,");
 			strSql.Append("Age=@Age,");
 			strSql.Append("IsFemale=@IsFemale,");
@@ -116,9 +106,8 @@ namespace FriendshipMngSys.DAL
 			strSql.Append("JobType=@JobType,");
 			strSql.Append("Hourlypay=@Hourlypay,");
 			strSql.Append("HadDiscount=@HadDiscount,");
-			strSql.Append("Score=@Score,");
-			strSql.Append("CompanyID=@CompanyID");
-			strSql.Append(" where ID=@ID");
+			strSql.Append("Score=@Score");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
 					new SQLiteParameter("@Name", DbType.String),
 					new SQLiteParameter("@Age", DbType.Int32,4),
@@ -130,8 +119,7 @@ namespace FriendshipMngSys.DAL
 					new SQLiteParameter("@Hourlypay", DbType.Int32,4),
 					new SQLiteParameter("@HadDiscount", DbType.Boolean),
 					new SQLiteParameter("@Score", DbType.Int32,4),
-					new SQLiteParameter("@CompanyID", DbType.Int32,4),
-					new SQLiteParameter("@ID", DbType.Int32,8)};
+					new SQLiteParameter("@ID", DbType.String,2147483647)};
 			parameters[0].Value = model.Name;
 			parameters[1].Value = model.Age;
 			parameters[2].Value = model.IsFemale;
@@ -142,8 +130,7 @@ namespace FriendshipMngSys.DAL
 			parameters[7].Value = model.Hourlypay;
 			parameters[8].Value = model.HadDiscount;
 			parameters[9].Value = model.Score;
-			parameters[10].Value = model.CompanyID;
-			parameters[11].Value = model.ID;
+			parameters[10].Value = model.ID;
 
 			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -159,15 +146,14 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(int ID)
+		public bool Delete(string ID)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("delete from Persons ");
-			strSql.Append(" where ID=@ID");
+			strSql.Append("delete from Person ");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@ID", DbType.Int32,4)
-			};
+					new SQLiteParameter("@ID", DbType.String,2147483647)			};
 			parameters[0].Value = ID;
 
 			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString(),parameters);
@@ -186,7 +172,7 @@ namespace FriendshipMngSys.DAL
 		public bool DeleteList(string IDlist )
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("delete from Persons ");
+			strSql.Append("delete from Person ");
 			strSql.Append(" where ID in ("+IDlist + ")  ");
 			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString());
 			if (rows > 0)
@@ -203,18 +189,17 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public FriendshipMngSys.Model.DBPersons GetModel(int ID)
+		public FriendshipMngSys.Model.DBPerson GetModel(string ID)
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,JobType,Hourlypay,HadDiscount,Score,CompanyID from Persons ");
-			strSql.Append(" where ID=@ID");
+			strSql.Append("select ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,JobType,Hourlypay,HadDiscount,Score from Person ");
+			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
-					new SQLiteParameter("@ID", DbType.Int32,4)
-			};
+					new SQLiteParameter("@ID", DbType.String,2147483647)			};
 			parameters[0].Value = ID;
 
-			FriendshipMngSys.Model.DBPersons model=new FriendshipMngSys.Model.DBPersons();
+			FriendshipMngSys.Model.DBPerson model=new FriendshipMngSys.Model.DBPerson();
 			DataSet ds=DbHelperSQLite.Query(strSql.ToString(),parameters);
 			if(ds.Tables[0].Rows.Count>0)
 			{
@@ -230,14 +215,14 @@ namespace FriendshipMngSys.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public FriendshipMngSys.Model.DBPersons DataRowToModel(DataRow row)
+		public FriendshipMngSys.Model.DBPerson DataRowToModel(DataRow row)
 		{
-			FriendshipMngSys.Model.DBPersons model=new FriendshipMngSys.Model.DBPersons();
+			FriendshipMngSys.Model.DBPerson model=new FriendshipMngSys.Model.DBPerson();
 			if (row != null)
 			{
-				if(row["ID"]!=null && row["ID"].ToString()!="")
+				if(row["ID"]!=null)
 				{
-					model.ID=int.Parse(row["ID"].ToString());
+					model.ID=row["ID"].ToString();
 				}
 				if(row["Name"]!=null)
 				{
@@ -293,10 +278,6 @@ namespace FriendshipMngSys.DAL
 				{
 					model.Score=int.Parse(row["Score"].ToString());
 				}
-				if(row["CompanyID"]!=null && row["CompanyID"].ToString()!="")
-				{
-					model.CompanyID=int.Parse(row["CompanyID"].ToString());
-				}
 			}
 			return model;
 		}
@@ -307,8 +288,8 @@ namespace FriendshipMngSys.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,JobType,Hourlypay,HadDiscount,Score,CompanyID ");
-			strSql.Append(" FROM Persons ");
+			strSql.Append("select ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,JobType,Hourlypay,HadDiscount,Score ");
+			strSql.Append(" FROM Person ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" where "+strWhere);
@@ -322,7 +303,7 @@ namespace FriendshipMngSys.DAL
 		public int GetRecordCount(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select count(1) FROM Persons ");
+			strSql.Append("select count(1) FROM Person ");
 			if(strWhere.Trim()!="")
 			{
 				strSql.Append(" where "+strWhere);
@@ -353,7 +334,7 @@ namespace FriendshipMngSys.DAL
 			{
 				strSql.Append("order by T.ID desc");
 			}
-			strSql.Append(")AS Row, T.*  from Persons T ");
+			strSql.Append(")AS Row, T.*  from Person T ");
 			if (!string.IsNullOrEmpty(strWhere.Trim()))
 			{
 				strSql.Append(" WHERE " + strWhere);
@@ -378,7 +359,7 @@ namespace FriendshipMngSys.DAL
 					new SQLiteParameter("@OrderType", DbType.bit),
 					new SQLiteParameter("@strWhere", DbType.VarChar,1000),
 					};
-			parameters[0].Value = "Persons";
+			parameters[0].Value = "Person";
 			parameters[1].Value = "ID";
 			parameters[2].Value = PageSize;
 			parameters[3].Value = PageIndex;

@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/7 星期四 下午 5:19:16   N/A    初版
+* V0.01  2020/5/8 星期五 下午 4:19:56   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -30,19 +30,10 @@ namespace FriendshipMngSys.BLL
 		public FriendshipBLL()
 		{}
 		#region  BasicMethod
-
-		/// <summary>
-		/// 得到最大ID
-		/// </summary>
-		public int GetMaxId()
-		{
-			return dal.GetMaxId();
-		}
-
 		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
-		public bool Exists(int ID)
+		public bool Exists(string ID)
 		{
 			return dal.Exists(ID);
 		}
@@ -50,7 +41,7 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
-		public int  Add(FriendshipMngSys.Model.DBFriendship model)
+		public bool Add(FriendshipMngSys.Model.DBFriendship model)
 		{
 			return dal.Add(model);
 		}
@@ -66,7 +57,7 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(int ID)
+		public bool Delete(string ID)
 		{
 			
 			return dal.Delete(ID);
@@ -82,7 +73,7 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public FriendshipMngSys.Model.DBFriendship GetModel(int ID)
+		public FriendshipMngSys.Model.DBFriendship GetModel(string ID)
 		{
 			
 			return dal.GetModel(ID);
@@ -91,7 +82,7 @@ namespace FriendshipMngSys.BLL
 		/// <summary>
 		/// 得到一个对象实体，从缓存中
 		/// </summary>
-		public FriendshipMngSys.Model.DBFriendship GetModelByCache(int ID)
+		public FriendshipMngSys.Model.DBFriendship GetModelByCache(string ID)
 		{
 			
 			string CacheKey = "DBFriendshipModel-" + ID;

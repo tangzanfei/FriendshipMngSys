@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* DBPersons.cs
+* DBPerson.cs
 *
 * 功 能： N/A
-* 类 名： DBPersons
+* 类 名： DBPerson
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/7 星期四 下午 5:19:17   N/A    初版
+* V0.01  2020/5/8 星期五 下午 4:19:56   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -18,30 +18,29 @@ using System;
 namespace FriendshipMngSys.Model
 {
 	/// <summary>
-	/// DBPersons:实体类(属性说明自动提取数据库字段的描述信息)
+	/// DBPerson:实体类(属性说明自动提取数据库字段的描述信息)
 	/// </summary>
 	[Serializable]
-	public partial class DBPersons
+	public partial class DBPerson
 	{
-		public DBPersons()
+		public DBPerson()
 		{}
 		#region Model
-		private int _id;
+		private string _id;
 		private string _name;
-		private int? _age;
+		private int _age=0;
 		private bool _isfemale= false;
-		private int? _stunum=0;
+		private int _stunum=0;
 		private string _birthplace;
 		private string _tel;
-		private int? _jobtype=0;
-		private int? _hourlypay;
+		private int _jobtype=0;
+		private int _hourlypay=0;
 		private bool _haddiscount= false;
-		private int? _score;
-		private int? _companyid;
+		private int _score=0;
 		/// <summary>
 		/// 
 		/// </summary>
-		public int ID
+		public string ID
 		{
 			set{ _id=value;}
 			get{return _id;}
@@ -57,7 +56,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? Age
+		public int Age
 		{
 			set{ _age=value;}
 			get{return _age;}
@@ -73,7 +72,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? StuNum
+		public int StuNum
 		{
 			set{ _stunum=value;}
 			get{return _stunum;}
@@ -97,7 +96,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? JobType
+		public int JobType
 		{
 			set{ _jobtype=value;}
 			get{return _jobtype;}
@@ -105,7 +104,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? Hourlypay
+		public int Hourlypay
 		{
 			set{ _hourlypay=value;}
 			get{return _hourlypay;}
@@ -121,18 +120,10 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? Score
+		public int Score
 		{
 			set{ _score=value;}
 			get{return _score;}
-		}
-		/// <summary>
-		/// 
-		/// </summary>
-		public int? CompanyID
-		{
-			set{ _companyid=value;}
-			get{return _companyid;}
 		}
 		#endregion Model
 

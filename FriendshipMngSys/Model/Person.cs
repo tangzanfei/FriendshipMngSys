@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,8 +28,9 @@ namespace FriendshipMngSys.Model
     }
 
 
-    public class Person
+    public class Person : NotifyBase 
     {
+
         private string name;
 
         /// <summary>
@@ -37,7 +39,11 @@ namespace FriendshipMngSys.Model
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set
+            { 
+                name = value;
+                NotifyPropertyChange("Name"); 
+            }
         }
 
         private bool isFemale;
@@ -48,7 +54,11 @@ namespace FriendshipMngSys.Model
         public bool IsFemale
         {
             get { return isFemale; }
-            set { isFemale = value; }
+            set {
+                isFemale = value;
+                NotifyPropertyChange("IsFemale");
+
+            }
         }
 
 
@@ -68,7 +78,7 @@ namespace FriendshipMngSys.Model
         public string Birthplace
         {
             get { return birthplace; }
-            set { birthplace = value; }
+            set { birthplace = value; NotifyPropertyChange("Birthplace"); }
         }
 
         private int stuNum;
@@ -79,7 +89,7 @@ namespace FriendshipMngSys.Model
         public int StuNum
         {
             get { return stuNum; }
-            set { stuNum = value; }
+            set { stuNum = value; NotifyPropertyChange("StuNum"); }
         }
 
         private string tel;
@@ -87,7 +97,7 @@ namespace FriendshipMngSys.Model
         public string Tel
         {
             get { return tel; }
-            set { tel = value; }
+            set { tel = value; NotifyPropertyChange("Tel"); }
         }
 
         private int score;
@@ -112,7 +122,7 @@ namespace FriendshipMngSys.Model
         public int Score
         {
             get { return score; }
-            set { score = value; }
+            set { score = value; NotifyPropertyChange("Score"); }
         }
 
         private E_JobType jobType;
@@ -123,12 +133,12 @@ namespace FriendshipMngSys.Model
             set { jobType = value; }
         }
 
-        private double hourlypay;
+        private int hourlypay;
 
-        public double Hourlypay
+        public int Hourlypay
         {
             get { return hourlypay; }
-            set { hourlypay = value; }
+            set { hourlypay = value; NotifyPropertyChange("Hourlypay"); }
         }
 
         private int age;
@@ -136,15 +146,16 @@ namespace FriendshipMngSys.Model
         public int Age
         {
             get { return age; }
-            set { age = value; }
+            set { age = value; NotifyPropertyChange("Age"); }
         }
 
         private bool hadDiscount;
 
+
         public bool HadDiscount
         {
             get { return hadDiscount; }
-            set { hadDiscount = value; }
+            set { hadDiscount = value; NotifyPropertyChange("HadDiscount"); }
         }
 
 

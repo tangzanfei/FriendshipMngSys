@@ -17,9 +17,9 @@ namespace FriendshipMngSys.Views
     /// <summary>
     /// FriendEdit.xaml 的交互逻辑
     /// </summary>
-    public partial class FriendEdit : Window
+    public partial class FriendEditWnd : Window
     {
-        public FriendEdit()
+        public FriendEditWnd()
         {
             InitializeComponent();
         }

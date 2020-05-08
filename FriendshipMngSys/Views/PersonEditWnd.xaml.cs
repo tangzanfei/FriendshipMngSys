@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FriendshipMngSys.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,38 @@ namespace FriendshipMngSys.Views
         public PersonEditWnd()
         {
             InitializeComponent();
+        }
+
+        public Person Person
+        {
+            get { return VM.Person; }
+            set 
+            {
+                if (value==null)
+                {
+                    VM.Person = new Person();
+                }
+                else
+                {
+                    VM.Person = value;
+                }
+            }
+        }
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnOk_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
         }
     }
 }
