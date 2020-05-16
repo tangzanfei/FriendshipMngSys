@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/8 星期五 下午 4:19:56   N/A    初版
+* V0.01  2020/5/16 23:33:16   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -28,12 +28,11 @@ namespace FriendshipMngSys.Model
 		#region Model
 		private string _id;
 		private string _name;
-		private int _age=0;
+		private string _age="80后";
 		private bool _isfemale= false;
 		private int _stunum=0;
 		private string _birthplace;
 		private string _tel;
-		private int _jobtype=0;
 		private int _hourlypay=0;
 		private bool _haddiscount= false;
 		private int _score=0;
@@ -56,7 +55,7 @@ namespace FriendshipMngSys.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int Age
+		public string Age
 		{
 			set{ _age=value;}
 			get{return _age;}
@@ -92,14 +91,6 @@ namespace FriendshipMngSys.Model
 		{
 			set{ _tel=value;}
 			get{return _tel;}
-		}
-		/// <summary>
-		/// 
-		/// </summary>
-		public int JobType
-		{
-			set{ _jobtype=value;}
-			get{return _jobtype;}
 		}
 		/// <summary>
 		/// 

@@ -6,7 +6,27 @@ using System.Threading.Tasks;
 
 namespace FriendshipMngSys.Model
 {
-    public class Company
+
+    /// <summary>
+    /// 工作类型
+    /// </summary>
+    public enum E_JobType
+    {
+        /// <summary>
+        /// 老板
+        /// </summary>
+        Boss = 0,         //老板
+        /// <summary>
+        /// 全职
+        /// </summary>
+        FullTime = 1,     //全职
+        /// <summary>
+        /// 兼职
+        /// </summary>
+        PartTime = 2,     //兼职
+    }
+
+    public class Company : ModelBase
     {
         private string name;
 
@@ -25,13 +45,7 @@ namespace FriendshipMngSys.Model
             set { address = value; }
         }
 
-        private string city;
 
-        public string City
-        {
-            get { return city; }
-            set { city = value; }
-        }
 
 
     }

@@ -1,5 +1,6 @@
 ﻿using FriendshipMngSys.DBUtility;
 using FriendshipMngSys.Model;
+using FriendshipMngSys.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,8 @@ namespace FriendshipMngSys
         {
             //var list = SQLiteHelper.GetTableBySQL("select * from Persons");
             
-            Views.PersonEditWnd wnd = new Views.PersonEditWnd();
+            PersonEditWnd wnd = new PersonEditWnd();
+            wnd.Owner = this;
             if (wnd.ShowDialog()??false)
             {
                 //点击了确认
@@ -66,8 +68,9 @@ namespace FriendshipMngSys
         {
             var p = VM.SelectedPerson;
             
-            Views.PersonEditWnd wnd = new Views.PersonEditWnd();
-            wnd.Person = p.Copy();
+            PersonEditWnd wnd = new PersonEditWnd();
+            wnd.Owner = this;
+            wnd.Person = (Person)p.Copy();
             if (wnd.ShowDialog() ?? false)
             {
                 //点击了确认
@@ -90,8 +93,9 @@ namespace FriendshipMngSys
         {
             var p = VM.SelectedPerson;
 
-            Views.PersonEditWnd wnd = new Views.PersonEditWnd();
-            wnd.Person = p.Copy();
+            PersonEditWnd wnd = new PersonEditWnd();
+            wnd.Owner = this;
+            wnd.Person = (Person)p.Copy();
             wnd.IsReadOnly = true;
             if (wnd.ShowDialog() ?? false)
             {

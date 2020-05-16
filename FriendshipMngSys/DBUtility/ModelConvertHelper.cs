@@ -23,7 +23,6 @@ namespace FriendshipMngSys.DBUtility
             person.Score = db.Score;
             person.StuNum = db.StuNum;
             person.Tel = db.Tel;
-            person.JobType = (E_JobType)db.JobType;
             person.Hourlypay = db.Hourlypay;
             person.HadDiscount = db.HadDiscount;
             person.CompanyList = new List<Company>();
@@ -42,7 +41,6 @@ namespace FriendshipMngSys.DBUtility
             db.Score = person.Score;
             db.StuNum = person.StuNum;
             db.Tel = person.Tel;
-            db.JobType = (int)person.JobType;
             db.Hourlypay = person.Hourlypay;
             db.HadDiscount = person.HadDiscount;
 

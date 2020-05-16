@@ -9,12 +9,6 @@ namespace FriendshipMngSys.Model
 {
     public class NotifyBase:INotifyPropertyChanged
     {
-        public string ID { get; set; }
-        public NotifyBase()
-        {
-            ID = Guid.NewGuid().ToString();
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChange(string propertyName)
         {

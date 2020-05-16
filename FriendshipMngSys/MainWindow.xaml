@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="王氏人脉管理系统" Height="1060" Width="1600" WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded">
     <Window.Resources>
-        <convert:NullToEnableConverter x:Key="NullToEnableConverter"/>
+        <convert:NullToEnableConverter x:Key="NullToEnableConverter"/> 
         <convert:ObjectConverter x:Key="ObjectConverter"/>
     </Window.Resources>
     <Window.DataContext>

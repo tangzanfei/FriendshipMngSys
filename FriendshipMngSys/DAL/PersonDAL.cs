@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2020/5/8 星期五 下午 4:19:56   N/A    初版
+* V0.01  2020/5/16 23:33:16   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -53,18 +53,17 @@ namespace FriendshipMngSys.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into Person(");
-			strSql.Append("ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,JobType,Hourlypay,HadDiscount,Score)");
+			strSql.Append("ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,Hourlypay,HadDiscount,Score)");
 			strSql.Append(" values (");
-			strSql.Append("@ID,@Name,@Age,@IsFemale,@StuNum,@Birthplace,@Tel,@JobType,@Hourlypay,@HadDiscount,@Score)");
+			strSql.Append("@ID,@Name,@Age,@IsFemale,@StuNum,@Birthplace,@Tel,@Hourlypay,@HadDiscount,@Score)");
 			SQLiteParameter[] parameters = {
 					new SQLiteParameter("@ID", DbType.String,2147483647),
 					new SQLiteParameter("@Name", DbType.String),
-					new SQLiteParameter("@Age", DbType.Int32,4),
+					new SQLiteParameter("@Age", DbType.String),
 					new SQLiteParameter("@IsFemale", DbType.Boolean),
 					new SQLiteParameter("@StuNum", DbType.Int32,4),
 					new SQLiteParameter("@Birthplace", DbType.String),
 					new SQLiteParameter("@Tel", DbType.String),
-					new SQLiteParameter("@JobType", DbType.Int32,4),
 					new SQLiteParameter("@Hourlypay", DbType.Int32,4),
 					new SQLiteParameter("@HadDiscount", DbType.Boolean),
 					new SQLiteParameter("@Score", DbType.Int32,4)};
@@ -75,10 +74,9 @@ namespace FriendshipMngSys.DAL
 			parameters[4].Value = model.StuNum;
 			parameters[5].Value = model.Birthplace;
 			parameters[6].Value = model.Tel;
-			parameters[7].Value = model.JobType;
-			parameters[8].Value = model.Hourlypay;
-			parameters[9].Value = model.HadDiscount;
-			parameters[10].Value = model.Score;
+			parameters[7].Value = model.Hourlypay;
+			parameters[8].Value = model.HadDiscount;
+			parameters[9].Value = model.Score;
 
 			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -103,19 +101,17 @@ namespace FriendshipMngSys.DAL
 			strSql.Append("StuNum=@StuNum,");
 			strSql.Append("Birthplace=@Birthplace,");
 			strSql.Append("Tel=@Tel,");
-			strSql.Append("JobType=@JobType,");
 			strSql.Append("Hourlypay=@Hourlypay,");
 			strSql.Append("HadDiscount=@HadDiscount,");
 			strSql.Append("Score=@Score");
 			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
 					new SQLiteParameter("@Name", DbType.String),
-					new SQLiteParameter("@Age", DbType.Int32,4),
+					new SQLiteParameter("@Age", DbType.String),
 					new SQLiteParameter("@IsFemale", DbType.Boolean),
 					new SQLiteParameter("@StuNum", DbType.Int32,4),
 					new SQLiteParameter("@Birthplace", DbType.String),
 					new SQLiteParameter("@Tel", DbType.String),
-					new SQLiteParameter("@JobType", DbType.Int32,4),
 					new SQLiteParameter("@Hourlypay", DbType.Int32,4),
 					new SQLiteParameter("@HadDiscount", DbType.Boolean),
 					new SQLiteParameter("@Score", DbType.Int32,4),
@@ -126,11 +122,10 @@ namespace FriendshipMngSys.DAL
 			parameters[3].Value = model.StuNum;
 			parameters[4].Value = model.Birthplace;
 			parameters[5].Value = model.Tel;
-			parameters[6].Value = model.JobType;
-			parameters[7].Value = model.Hourlypay;
-			parameters[8].Value = model.HadDiscount;
-			parameters[9].Value = model.Score;
-			parameters[10].Value = model.ID;
+			parameters[6].Value = model.Hourlypay;
+			parameters[7].Value = model.HadDiscount;
+			parameters[8].Value = model.Score;
+			parameters[9].Value = model.ID;
 
 			int rows=DbHelperSQLite.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -193,7 +188,7 @@ namespace FriendshipMngSys.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,JobType,Hourlypay,HadDiscount,Score from Person ");
+			strSql.Append("select ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,Hourlypay,HadDiscount,Score from Person ");
 			strSql.Append(" where ID=@ID ");
 			SQLiteParameter[] parameters = {
 					new SQLiteParameter("@ID", DbType.String,2147483647)			};
@@ -228,9 +223,9 @@ namespace FriendshipMngSys.DAL
 				{
 					model.Name=row["Name"].ToString();
 				}
-				if(row["Age"]!=null && row["Age"].ToString()!="")
+				if(row["Age"]!=null)
 				{
-					model.Age=int.Parse(row["Age"].ToString());
+					model.Age=row["Age"].ToString();
 				}
 				if(row["IsFemale"]!=null && row["IsFemale"].ToString()!="")
 				{
@@ -254,10 +249,6 @@ namespace FriendshipMngSys.DAL
 				if(row["Tel"]!=null)
 				{
 					model.Tel=row["Tel"].ToString();
-				}
-				if(row["JobType"]!=null && row["JobType"].ToString()!="")
-				{
-					model.JobType=int.Parse(row["JobType"].ToString());
 				}
 				if(row["Hourlypay"]!=null && row["Hourlypay"].ToString()!="")
 				{
@@ -288,7 +279,7 @@ namespace FriendshipMngSys.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,JobType,Hourlypay,HadDiscount,Score ");
+			strSql.Append("select ID,Name,Age,IsFemale,StuNum,Birthplace,Tel,Hourlypay,HadDiscount,Score ");
 			strSql.Append(" FROM Person ");
 			if(strWhere.Trim()!="")
 			{
