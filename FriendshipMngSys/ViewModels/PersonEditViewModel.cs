@@ -22,13 +22,7 @@ namespace FriendshipMngSys.ViewModels
             }
         }
 
-        private List<Person>  friendList=new List<Person>();
 
-        public List<Person>   FriendList
-        {
-            get { return friendList; }
-            set { friendList = value; }
-        }
 
 
 

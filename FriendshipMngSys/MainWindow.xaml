@@ -35,9 +35,7 @@
                 <MenuItem Header="编辑" Click="MenuItemEditPerson_Click" IsEnabled="{Binding SelectedPerson, Converter={StaticResource NullToEnableConverter}}" />
                 <MenuItem Header="删除" Click="MenuItemDelPerson_Click" IsEnabled="{Binding SelectedPerson, Converter={StaticResource NullToEnableConverter}}"/>
             </MenuItem>
-            <MenuItem Header="关系网操作">
-                <MenuItem Header="添加朋友"/>
-                <MenuItem Header="删除朋友"/>
+            <MenuItem Header="关系网操作" Click="MenuItemFriendEdit_Click"  IsEnabled="{Binding SelectedPerson, Converter={StaticResource NullToEnableConverter}}">
             </MenuItem>
             <MenuItem Header="部门编辑">
                 <MenuItem Header="新增"/>

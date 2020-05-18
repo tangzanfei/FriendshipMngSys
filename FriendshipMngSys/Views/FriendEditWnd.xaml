@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:FriendshipMngSys.Views"
         xmlns:ViewModels="clr-namespace:FriendshipMngSys.ViewModels" x:Class="FriendshipMngSys.Views.FriendEditWnd"
         mc:Ignorable="d"
-        Title="关系网" Height="600" Width="400">
+        Title="{Binding Person.Name}" Height="600" Width="400">
     <Window.DataContext>
-        <ViewModels:PersonEditViewModel x:Name="VM"/>
+        <ViewModels:FriendEditViewModel x:Name="VM"/>
     </Window.DataContext>
     <Grid >
         <Grid.ColumnDefinitions>
@@ -22,22 +22,23 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <GroupBox  Header="查找"  Grid.ColumnSpan="3">
+        <GroupBox  Header="查找朋友"  Grid.ColumnSpan="3">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="70"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock  TextWrapping="Wrap" Text="姓名" VerticalAlignment="Center" Margin="10,31,0,31" Grid.ColumnSpan="4"  />
-                <TextBox x:Name="txbName" Height="22"  VerticalAlignment="Center"  Margin="5" HorizontalAlignment="Stretch" Grid.Column="1"/>
+                <TextBox x:Name="txbFindName" Height="22"  VerticalAlignment="Center"  Margin="5" HorizontalAlignment="Stretch" Grid.Column="1"/>
+                <Button x:Name="btnFind"  Height="23" Grid.Column="2" Content="查 找" Margin="5" Click="btnFind_Click"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="待选" Grid.Row="1" Margin="10">
-            <ListBox x:Name="listBox1">
-                <CheckBox Content="张三"/>
-                <CheckBox Content="王宝强"/>
+            <ListBox x:Name="listboxPerson" SelectionMode="Multiple" ItemsSource="{Binding PersonList}" DisplayMemberPath="Name" >
+                <!--<CheckBox Content="张三"/>
+                <CheckBox Content="王宝强"/>-->
             </ListBox>
         </GroupBox>
         <Grid Grid.Row="1" Grid.Column="1">
@@ -50,18 +51,18 @@
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="btn1" Grid.Row="1" Content="→" Height="23" Margin="5"/>
-            <Button x:Name="btn2" Grid.Row="2" Content="←" Height="23" Margin="5"/>
-            <Button x:Name="btn3" Grid.Row="3" Content="好友全选" Height="23" Margin="5"/>
-            <Button x:Name="btn4" Grid.Row="4" Content="还原好友" Height="23" Margin="5"/>
+            <Button x:Name="btnAdd" Grid.Row="1" Content="→" Height="23" Margin="5" Click="btnAdd_Click"/>
+            <Button x:Name="btnDel" Grid.Row="2" Content="←" Height="23" Margin="5" Click="btnDel_Click"/>
+            <Button x:Name="btnSelectAll" Grid.Row="3" Content="全选" Height="23" Margin="5" Click="btnSelectAll_Click"/>
+            <Button x:Name="btnReset" Grid.Row="4" Content="全不选" Height="23" Margin="5" Click="btnReset_Click"/>
         </Grid>
         <GroupBox Header="已选好友"  Grid.Row="1" Grid.Column="2" Margin="10">
-            <ListBox x:Name="listBox1_Copy" Grid.Row="1" Grid.Column="2">
-                <CheckBox Content="刘德华"/>
-                <CheckBox Content="张强"/>
+            <ListBox  x:Name="listboxFriend" Grid.Row="1" Grid.Column="2" SelectionMode="Multiple" ItemsSource="{Binding FriendList}"  DisplayMemberPath="Name">
+                <!--<CheckBox Content="刘德华"/>
+                <CheckBox Content="张强"/>-->
             </ListBox>
         </GroupBox>
-        <Button x:Name="btnOK" Content="确 认" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="75"/>
-        <Button x:Name="btnCancel" Content="取 消" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="75" Grid.Column="2"/>
+        <Button x:Name="btnOK" Content="确 认" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="75" IsDefault="True" Click="btnOK_Click"/>
+        <Button x:Name="btnCancel" Content="取 消" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="75" Grid.Column="2" IsCancel="True" Click="btnCancel_Click"/>
     </Grid>
 </Window>

@@ -122,5 +122,28 @@ namespace FriendshipMngSys
         {
             MenuItemEditPerson_Click(sender, e);
         }
+
+        private void MenuItemFriendEdit_Click(object sender, RoutedEventArgs e)
+        {
+            FriendEditWnd wnd = new FriendEditWnd();
+            wnd.SelectPerson = VM.SelectedPerson;
+            wnd.Owner = this;
+            if (wnd.ShowDialog() ?? false)
+            {
+                if (wnd.TrySave())
+                {
+                    MessageBox.Show("更新成功");
+                }
+                else
+                {
+                    MessageBox.Show("更新失败");
+                }
+            }
+            else
+            {
+                //取消的话啥也不做
+            }
+
+        }
     }
 }

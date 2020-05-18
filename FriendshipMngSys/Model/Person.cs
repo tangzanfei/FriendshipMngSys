@@ -140,5 +140,31 @@ namespace FriendshipMngSys.Model
             set { _CompanyDic = value; }
         }
 
+
+
+
+
     }
+
+    /// <summary>
+    /// person的ID比较器，只要ID相同就认为是同一个person对象
+    /// </summary>
+    public class PersonIdComparer : IEqualityComparer<Person>
+    {
+        public bool Equals(Person x, Person y)
+        {
+            bool result = true;
+            if (x.ID != y.ID)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        public int GetHashCode(Person obj)
+        {
+            return 0;
+        }
+    }
+
 }

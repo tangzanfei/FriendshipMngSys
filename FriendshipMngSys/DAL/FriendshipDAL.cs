@@ -285,6 +285,33 @@ namespace FriendshipMngSys.DAL
 
 		#endregion  BasicMethod
 		#region  ExtensionMethod
+		/// <summary>
+		/// 删除一条数据
+		/// </summary>
+		public bool DeleteByFriendship(string ID,string FID)
+		{
+
+			StringBuilder strSql = new StringBuilder();
+			strSql.Append("delete from Friendship ");
+			strSql.Append(" where PersonID=@ID and FriendID=@FID");
+			SQLiteParameter[] parameters = {
+					new SQLiteParameter("@ID", DbType.String,2147483647),
+					new SQLiteParameter("@FID", DbType.String,2147483647),
+			};
+			parameters[0].Value = ID;
+			parameters[1].Value = FID;
+
+			int rows = DbHelperSQLite.ExecuteSql(strSql.ToString(), parameters);
+			if (rows > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 
 		#endregion  ExtensionMethod
 	}

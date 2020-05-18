@@ -167,11 +167,21 @@ namespace FriendshipMngSys.BLL
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
-			//return dal.GetList(PageSize,PageIndex,strWhere);
+		//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
 
 		#endregion  BasicMethod
 		#region  ExtensionMethod
+
+		/// <summary>
+		/// 删除一条数据
+		/// </summary>
+		public bool DeleteByFriendShip(string ID,string FID)
+		{
+
+			return dal.DeleteByFriendship(ID, FID);
+		}
+
 
 		#endregion  ExtensionMethod
 	}
