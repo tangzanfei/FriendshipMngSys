@@ -12,8 +12,6 @@ namespace FriendshipMngSys.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool enable = true;
-
             if (value == null)
             {
                 return false;

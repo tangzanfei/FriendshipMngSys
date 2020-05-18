@@ -30,8 +30,7 @@ namespace FriendshipMngSys
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            FriendshipMngSys.BLL.PersonBLL personBll = new BLL.PersonBLL();
-            var pernsonList = personBll.GetModelList("");
+            var pernsonList =DbHelper.PersonBLL.GetModelList("");
             List<Person> pensonList = new List<Person>();
             foreach (var p in pernsonList)
             {
@@ -52,9 +51,8 @@ namespace FriendshipMngSys
             {
                 //点击了确认
                 var p = wnd.Person;
-                FriendshipMngSys.BLL.PersonBLL personBll= new BLL.PersonBLL();
                 DBPerson db = ModelConvertHelper.ModelToDB(p);
-                personBll.Add(db);
+                DbHelper.PersonBLL.Add(db);
                 VM.PersonList.Add(p);
             }
             else
@@ -77,9 +75,8 @@ namespace FriendshipMngSys
 
                 int index=VM.PersonList.IndexOf(p);
                 VM.PersonList[index] = p = wnd.Person;
-                FriendshipMngSys.BLL.PersonBLL personBll = new BLL.PersonBLL();
                 DBPerson db = ModelConvertHelper.ModelToDB(p);
-                personBll.Update(db);
+                DbHelper.PersonBLL.Update(db);
 
             }
             else
@@ -102,8 +99,8 @@ namespace FriendshipMngSys
                 //点击了确认
                 VM.PersonList.Remove(p);
 
-                FriendshipMngSys.BLL.PersonBLL personBll = new BLL.PersonBLL();
-                if(personBll.Delete(p.ID))
+
+                if(DbHelper.PersonBLL.Delete(p.ID))
                 {
                     MessageBox.Show("删除成功");
                 }
